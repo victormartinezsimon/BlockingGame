@@ -6,6 +6,7 @@ public class PendulumMovement : MonoBehaviour {
 	private Vector3 m_velocityVector;
 	private bool m_right;
 	public float m_velocityMagnitude;
+	private TextureChange m_textureChange;
 
 	public float VelocityMagnitude{
 		get{ return m_velocityMagnitude;}
@@ -18,6 +19,7 @@ public class PendulumMovement : MonoBehaviour {
 		m_velocityVector = new Vector3(-1,0,0);
 		m_right = false;
 		m_transform = this.transform;
+		m_textureChange = GetComponent<TextureChange>();
 	}
 	
 	// Update is called once per frame
@@ -30,5 +32,6 @@ public class PendulumMovement : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		m_velocityVector *= -1;
 		m_right = !m_right;
+		m_textureChange.setBounding();
 	}
 }
