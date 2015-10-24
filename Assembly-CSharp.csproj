@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BlockMovement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Kill.cs" />
      <Compile Include="Assets\Scripts\PendulumMovement.cs" />
      <Compile Include="Assets\Scripts\TextureChange.cs" />
  <Reference Include="UnityEngine.UI">

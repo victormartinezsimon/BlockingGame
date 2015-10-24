@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject m_blockPrefab;
 	public int m_poolSize = 20;
 
+	public GameObject m_spike;
+
 	private GameObject[] m_blocks;
 	private List<GameObject> m_blocksEnabled;
 
@@ -115,10 +117,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void fillWorld() {
-
 		instantiatePlayer();
 		instantiateBlocks();
 		colocateBlocks();
+		instantiateAndColocateSpikes();
 	}
 
 	private void instantiatePlayer() {
@@ -184,4 +186,30 @@ public class GameManager : MonoBehaviour {
 		m_blocksEnabled.Add(m_blocks[id]);
 	}
 
+	private void instantiateAndColocateSpikes() {
+
+		Vector3 spikeSize = m_spike.GetComponent<Renderer>().bounds.size;
+		float topSpikesInWorld = m_camera.ScreenToWorldPoint(new Vector3(0,Screen.height * 1.2f,0)).y;
+		float bottomSpikesInWorld = m_camera.ScreenToWorldPoint(new Vector3(0, -Screen.height * 0.2f, 0)).y;
+
+		float totalSpikes = Mathf.Abs(topSpikesInWorld - bottomSpikesInWorld) / spikeSize.y;
+
+		float yAcum = topSpikesInWorld;
+		float xLeft = m_camera.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
+		for(int i = 0; i < totalSpikes; i++) {
+			GameObject go = Instantiate(m_spike);
+
+			go.transform.position = new Vector3(xLeft + spikeSize.x/2, yAcum, 0);
+
+			yAcum -=spikeSize.y;
+		}
+		yAcum = topSpikesInWorld;
+		float xRight = m_camera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+		for(int i = 0; i < totalSpikes; i++) {
+			GameObject go = Instantiate(m_spike);
+			go.transform.position = new Vector3(xRight - spikeSize.x/2, yAcum, 0);
+			go.transform.Rotate(0,0,180);
+			yAcum -=spikeSize.y;
+		}
+	}
 }
