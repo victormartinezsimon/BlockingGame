@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour {
 	public Text puntuationText;
 
 	private float m_velocityPress;
+
+	private bool gameEnded;
 	#region getters and setters
 	public float blockVelocity {
 		get{ return m_velocityPress;}
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour {
 		m_blocksEnabled = new List<GameObject>();
 		timeAcum = 0;
 		puntuationText.text = m_score.ToString();
+		gameEnded = false;
 	}
 	
 	// Update is called once per frame
@@ -210,6 +213,14 @@ public class GameManager : MonoBehaviour {
 			go.transform.position = new Vector3(xRight - spikeSize.x/2, yAcum, 0);
 			go.transform.Rotate(0,0,180);
 			yAcum -=spikeSize.y;
+		}
+	}
+
+	public void endGame ()
+	{
+		if(!gameEnded) {
+			Debug.Log("do something");
+			gameEnded = true;
 		}
 	}
 }
