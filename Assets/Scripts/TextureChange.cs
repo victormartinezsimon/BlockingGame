@@ -6,7 +6,9 @@ public class TextureChange : MonoBehaviour {
 	public Texture m_happy;
 	public Texture m_collision;
 
+	[HideInInspector]
 	public float xLeft;
+	[HideInInspector]
 	public float xRight;
 
 	private Renderer m_renderer;
@@ -14,11 +16,14 @@ public class TextureChange : MonoBehaviour {
 
 	private bool bounding;
 
+	private PendulumMovement movement;
+
 	// Use this for initialization
 	void Start () {
 		m_renderer = GetComponent<Renderer>();
 		m_transform = transform;
 		bounding = false;
+		movement = GetComponent<PendulumMovement>();
 	}
 	
 	// Update is called once per frame
@@ -40,8 +45,11 @@ public class TextureChange : MonoBehaviour {
 			return;
 		}
 
-		m_renderer.material.mainTexture = m_happy;
-		bounding = false;
+		if(bounding) {
+			bounding = false;
+			m_renderer.material.mainTexture = m_happy;
+		}
+
 	}
 	public void setBounding() {
 		m_renderer.material.mainTexture = m_happy;

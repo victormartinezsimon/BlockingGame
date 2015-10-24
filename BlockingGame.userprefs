@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TextureChange.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
+      <File FileName="Assets\Scripts\GameManager.cs" Line="42" Column="3" />
       <File FileName="Assets\Scripts\TextureChange.cs" Line="44" Column="20" />
-      <File FileName="Assets\Scripts\PendulumMovement.cs" Line="35" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
