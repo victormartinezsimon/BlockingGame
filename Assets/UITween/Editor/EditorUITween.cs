@@ -78,7 +78,7 @@ public class EditorUITween : Editor
 					if (GUI.changed) { EditorUtility.SetDirty(tweenScript); }
 				}
 				else
-				{
+				{EditorPos();
 					if (GUILayout.Button("Animate"))
 					{
 						tweenScript.OpenCloseObjectAnimation();

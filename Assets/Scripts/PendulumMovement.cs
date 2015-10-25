@@ -14,6 +14,8 @@ public class PendulumMovement : MonoBehaviour {
 	public float timeBetweenCollision = 0.1f;
 	private float timeAcum = 0;
 
+	private AudioSource m_soundCollision;
+
 	public float VelocityMagnitude{
 		get{ return m_velocityMagnitude;}
 		set{ m_velocityMagnitude = value;}
@@ -31,6 +33,7 @@ public class PendulumMovement : MonoBehaviour {
 		m_transform = this.transform;
 		m_textureChange = GetComponent<TextureChange>();
 		timeAcum = 0;
+		m_soundCollision = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -51,6 +54,11 @@ public class PendulumMovement : MonoBehaviour {
 				m_manager.addScore();
 			}
 			timeAcum = 0;
+
+			if(m_soundCollision != null) {
+				m_soundCollision.Play();
+			}
+
 		}
 	}
 }

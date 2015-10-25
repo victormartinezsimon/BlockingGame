@@ -58,6 +58,7 @@ public class MenuManager : MonoBehaviour {
 
 	private void easterEgg(Vector3 pixelPos) {
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(pixelPos);
+		worldPos.z = 10;
 		Instantiate(dead, worldPos, Quaternion.identity);
 	}
 
