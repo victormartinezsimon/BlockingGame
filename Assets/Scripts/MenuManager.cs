@@ -54,6 +54,10 @@ public class MenuManager : MonoBehaviour {
 			easterEgg(Input.mousePosition);
 			timeAcum = 0;
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			exitGame();
+		}
 	}
 
 	private void easterEgg(Vector3 pixelPos) {
@@ -62,4 +66,7 @@ public class MenuManager : MonoBehaviour {
 		Instantiate(dead, worldPos, Quaternion.identity);
 	}
 
+	public void exitGame() {
+		Application.Quit();
+	}
 }

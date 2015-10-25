@@ -26,7 +26,7 @@ public class MenuAnimation : MonoBehaviour {
 	}
 
 	void movePlay() {
-		Vector3 posEndPlay = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.2f, 0)); 
+		Vector3 posEndPlay = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.25f, 0)); 
 		Vector3 startLocal = m_play.transform.localPosition;
 		m_play.transform.position = posEndPlay;
 		Vector3 endlocal = m_play.transform.localPosition;
@@ -51,5 +51,7 @@ public class MenuAnimation : MonoBehaviour {
 		m_name.ChangeSetState(false);
 		m_name.OpenCloseObjectAnimation();
 	}
+
+
 
 }

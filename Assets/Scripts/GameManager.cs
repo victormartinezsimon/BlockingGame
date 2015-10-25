@@ -99,6 +99,10 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			backToMenu();
+		}
 	}
 
 	public void addScore() {
@@ -241,5 +245,9 @@ public class GameManager : MonoBehaviour {
 
 	public void restarGame() {
 		Application.LoadLevel(Application.loadedLevel);
+	}
+
+	public void backToMenu() {
+		Application.LoadLevel("Menu");
 	}
 }
