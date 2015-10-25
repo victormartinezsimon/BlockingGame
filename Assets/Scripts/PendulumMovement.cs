@@ -47,7 +47,9 @@ public class PendulumMovement : MonoBehaviour {
 			m_velocityVector *= -1;
 			m_right = !m_right;
 			m_textureChange.setBounding();
-			m_manager.addScore();
+			if(m_manager != null) {
+				m_manager.addScore();
+			}
 			timeAcum = 0;
 		}
 	}

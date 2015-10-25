@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 	[Header("World Colocation")]
 	public float separationBorder = 0.1f;
 	public float borderSize = 0.05f;
-	public float changeTexture = 0.2f;
+	public float changeTexture = 0.1f;
 
 	private Camera m_camera;
 
@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour {
 	[Header("Game Level")]
 	public int levelIncrease = 6;
 	public float percentageCreation = 0.8f;
+	public float percentageCreationAlpha = 0.05f;
+	public float percentageCreationMin = 0.2f;
 	public float timeBetweenTries = 0.5f;
 	private float timeAcum;
 	public int addPlayer = 1;
@@ -42,6 +44,9 @@ public class GameManager : MonoBehaviour {
 
 	[Header("UI")]
 	public Text puntuationText;
+	public EasyTween m_gameOverScreen;
+	public Text m_bestPuntuation;
+	public Text m_actualPuntuation;
 
 	private float m_velocityPress;
 
@@ -105,7 +110,7 @@ public class GameManager : MonoBehaviour {
 
 			updateVelocityPlayer();
 			updateVelocityBlock();
-			percentageCreation = Mathf.Max(percentageCreation - 0.1f, 0.1f);
+			percentageCreation = Mathf.Max(percentageCreation - percentageCreationAlpha, percentageCreationMin);
 		}
 
 		puntuationText.text = m_score.ToString();
@@ -136,8 +141,8 @@ public class GameManager : MonoBehaviour {
 		pendulum.GameManager = this;
 		pendulum.m_velocityMagnitude = playerInitialVelocity;
 		
-		float posChangeTextureLeft = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * changeTexture, 0, 0)).x;
-		float posChangeTextureRight = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * (1 - changeTexture), 0, 0)).x;
+		float posChangeTextureLeft = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * (changeTexture +  borderSize +  separationBorder), 0, 0)).x;
+		float posChangeTextureRight = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * (1 -  (changeTexture +  borderSize +  separationBorder)), 0, 0)).x;
 
 		TextureChange texture = m_player.GetComponent<TextureChange>();
 		texture.xLeft = posChangeTextureLeft;
@@ -222,12 +227,14 @@ public class GameManager : MonoBehaviour {
 	{
 		if(!gameEnded) {
 
+			m_gameOverScreen.OpenCloseObjectAnimation();
+			m_actualPuntuation.text = m_score.ToString();
 
 
 			if(PlayerPrefs.GetInt("Score") < m_score) {
 				PlayerPrefs.SetInt("Score", m_score);
 			}
-
+			m_bestPuntuation.text = PlayerPrefs.GetInt("Score").ToString();
 			gameEnded = true;
 		}
 	}

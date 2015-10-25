@@ -46,9 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AutoKill.cs" />
      <Compile Include="Assets\Scripts\BlockMovement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Kill.cs" />
+     <Compile Include="Assets\Scripts\MenuAnimation.cs" />
+     <Compile Include="Assets\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Scripts\PendulumMovement.cs" />
      <Compile Include="Assets\Scripts\TextureChange.cs" />
      <Compile Include="Assets\UITween\Scripts\EasyTween.cs" />
