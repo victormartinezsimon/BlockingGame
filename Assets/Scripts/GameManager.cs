@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour {
 	public int levelIncrease = 6;
 	public float percentageCreation = 0.8f;
 	public float timeBetweenTries = 0.5f;
-	public float timeAcum;
+	private float timeAcum;
+	public int addPlayer = 1;
+	public int addBlock = 1;
 
 	[Header("UI")]
 	public Text puntuationText;
@@ -98,8 +100,8 @@ public class GameManager : MonoBehaviour {
 		++m_score;
 
 		if(m_score % levelIncrease == 0) {
-			actualBlockVelocity = Mathf.Min(actualBlockVelocity + 1, maxVelocityBlock);
-			actualVelocityPlayer = Mathf.Min(actualVelocityPlayer + 1, maxVelocityPlayer);
+			actualBlockVelocity = Mathf.Min(actualBlockVelocity + addBlock, maxVelocityBlock);
+			actualVelocityPlayer = Mathf.Min(actualVelocityPlayer + addPlayer, maxVelocityPlayer);
 
 			updateVelocityPlayer();
 			updateVelocityBlock();
@@ -219,8 +221,18 @@ public class GameManager : MonoBehaviour {
 	public void endGame ()
 	{
 		if(!gameEnded) {
-			Debug.Log("do something");
+
+
+
+			if(PlayerPrefs.GetInt("Score") < m_score) {
+				PlayerPrefs.SetInt("Score", m_score);
+			}
+
 			gameEnded = true;
 		}
+	}
+
+	public void restarGame() {
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }
