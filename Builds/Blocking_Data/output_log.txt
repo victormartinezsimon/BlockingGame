@@ -16,13 +16,25 @@ Platform assembly: C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Block
 Loading C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Blocking_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Blocking_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Blocking_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.044 seconds
+- Completed reload, in  0.043 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
 Platform assembly: C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Blocking_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Victor\Documents\Workspace\BlockingGame\Builds\Blocking_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 38f0 -> priority: 1 
-  Thread -> id: 3230 -> priority: 1 
+  Thread -> id: 18e8 -> priority: 1 
+  Thread -> id: 23d4 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.385574 ms
+
+Unloading 63 unused Assets to reduce memory usage. Loaded Objects now: 326.
+Total: 0.351102 ms (FindLiveObjects: 0.025231 ms CreateObjectMapping: 0.020099 ms MarkObjects: 0.274552 ms  DeleteObjects: 0.030363 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.780893 ms
+
+Unloading 91 unused Assets to reduce memory usage. Loaded Objects now: 312.
+Total: 0.450317 ms (FindLiveObjects: 0.029508 ms CreateObjectMapping: 0.020954 ms MarkObjects: 0.287382 ms  DeleteObjects: 0.111617 ms)
+
