@@ -47,10 +47,12 @@ public class GameManager : MonoBehaviour {
 	public EasyTween m_gameOverScreen;
 	public Text m_bestPuntuation;
 	public Text m_actualPuntuation;
+	public SpriteRenderer m_clickAnimation;
 
 	private float m_velocityPress;
 
 	private bool gameEnded;
+	private bool gameStarted;
 	#region getters and setters
 	public float blockVelocity {
 		get{ return m_velocityPress;}
@@ -70,10 +72,23 @@ public class GameManager : MonoBehaviour {
 		timeAcum = 0;
 		puntuationText.text = m_score.ToString();
 		gameEnded = false;
+		gameStarted = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(!gameStarted) {
+
+			if(Input.touchCount!= 0 || Input.GetMouseButtonDown(0)){
+				gameStarted = true;
+				enableAllBlocks();
+				m_clickAnimation.gameObject.SetActive(false);
+			}
+
+			return;
+		}
+
 		timeAcum += Time.deltaTime;
 
 		if(timeAcum >= timeBetweenTries) {
@@ -105,7 +120,16 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	private void enableAllBlocks() {
+		for(int i = 0; i < m_blocks.Length; ++i) {
+			m_blocks[i].GetComponent<BlockMovement>().enabled = true;
+		}
+	}
+
 	public void addScore() {
+		if(!gameStarted) {
+			return;
+		}
 		++m_score;
 
 		if(m_score % levelIncrease == 0) {
@@ -135,6 +159,7 @@ public class GameManager : MonoBehaviour {
 		instantiateBlocks();
 		colocateBlocks();
 		instantiateAndColocateSpikes();
+		colocateAnimationClick();
 	}
 
 	private void instantiatePlayer() {
@@ -170,7 +195,7 @@ public class GameManager : MonoBehaviour {
 	private void colocateBlocks() {
 
 		float heightSquare = m_blockPrefab.GetComponent<Renderer>().bounds.size.y;
-		float initY = Screen.height * 1.5f;
+		float initY = Screen.height * 1.4f;
 
 		//left part
 		Vector3 leftInfo = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * (borderSize + separationBorder),initY, 0));
@@ -225,6 +250,14 @@ public class GameManager : MonoBehaviour {
 			go.transform.Rotate(0,0,180);
 			yAcum -=spikeSize.y;
 		}
+	}
+
+	private void colocateAnimationClick() {
+
+		float posy = Screen.height * (0.5f - 0.2f);
+		Vector3 posInstantiateAnimation = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, posy , 0));
+		posInstantiateAnimation.z = 0;
+		m_clickAnimation.transform.position = posInstantiateAnimation;
 	}
 
 	public void endGame ()
