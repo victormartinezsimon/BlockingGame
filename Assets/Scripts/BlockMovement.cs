@@ -53,4 +53,7 @@ public class BlockMovement : MonoBehaviour {
 			}
 		}
 	}
+	void OnDisable() {
+		touchOption = false;
+	}
 }
