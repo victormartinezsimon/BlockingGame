@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Advertisements;
 
 public class MenuManager : MonoBehaviour {
 
@@ -18,7 +19,9 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		#if !UNITY_STANDALONE
+		Advertisement.Initialize ("1011522", true);
+		#endif
 		colocateBlocks();
 		timeAcum = 0;
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameManager : MonoBehaviour {
 
@@ -48,11 +49,14 @@ public class GameManager : MonoBehaviour {
 	public Text m_bestPuntuation;
 	public Text m_actualPuntuation;
 	public SpriteRenderer m_clickAnimation;
+	public EasyTween m_showVideoToContinue;
 
 	private float m_velocityPress;
 
 	private bool gameEnded;
 	private bool gameStarted;
+	private bool alreadyContinued;
+	private bool tryToShowVideo;
 	#region getters and setters
 	public float blockVelocity {
 		get{ return m_velocityPress;}
@@ -64,15 +68,34 @@ public class GameManager : MonoBehaviour {
 		m_score = 0;
 		m_camera = Camera.main;
 		Random.seed = 10;
+		m_blocksEnabled = new List<GameObject>();
+		timeAcum = 0;
+		alreadyContinued = false;
+		tryToShowVideo = false;
+		puntuationText.text = m_score.ToString();
+		continueGame();
+	}
+
+	private void continueGame(bool _continue = false) {
+		Destroy(m_player);
+		m_blocksEnabled.Clear();
+		if(m_blocks != null) {
+			for(int i = 0; i < m_blocks.Length; i++) {
+				Destroy(m_blocks[i]);
+			}
+		}
+		m_blocks = null;
+
 		m_velocityPress = blockInitialVelocity * 2;
 		actualVelocityPlayer = playerInitialVelocity;
 		actualBlockVelocity = blockInitialVelocity;
 		fillWorld();
-		m_blocksEnabled = new List<GameObject>();
-		timeAcum = 0;
-		puntuationText.text = m_score.ToString();
-		gameEnded = false;
 		gameStarted = false;
+		gameEnded = false;
+
+		if(_continue) {
+			m_clickAnimation.gameObject.SetActive(true);
+		}
 	}
 	
 	// Update is called once per frame
@@ -163,6 +186,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void instantiatePlayer() {
+
 		Vector3 posInstantiatePlayer = m_camera.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f , 0));
 		m_player = Instantiate(m_playerPrefab);
 		m_player.transform.position = new Vector3(posInstantiatePlayer.x, posInstantiatePlayer.y, 0);
@@ -206,6 +230,7 @@ public class GameManager : MonoBehaviour {
 			m_blocks[i].transform.position = new Vector3(positionXLeft, originYLeft, 0);
 			m_blocks[i].gameObject.name = i.ToString();
 			originYLeft -= heightSquare;
+			m_blocks[i].GetComponent<BlockMovement>().enabled = false;
 		}
 
 		//right part
@@ -262,8 +287,15 @@ public class GameManager : MonoBehaviour {
 
 	public void endGame ()
 	{
-		if(!gameEnded) {
+		if(!alreadyContinued) {
+			if(!tryToShowVideo) {
+				showOptionVideo();
+			}
+			tryToShowVideo = true;
+			return;
+		}
 
+		if(!gameEnded) {
 			m_gameOverScreen.OpenCloseObjectAnimation();
 			m_actualPuntuation.text = m_score.ToString();
 
@@ -283,4 +315,62 @@ public class GameManager : MonoBehaviour {
 	public void backToMenu() {
 		Application.LoadLevel("Menu");
 	}
+	public void showAdd() {
+		alreadyContinued = true;
+		StartCoroutine (ShowAdWhenReady());
+		m_showVideoToContinue.gameObject.SetActive(false);
+	}
+	public void dontShowAdd() {
+		alreadyContinued = true;
+		m_showVideoToContinue.gameObject.SetActive(false);
+		endGame();
+	}
+
+	private void showOptionVideo() {
+		#if UNITY_STANDALONE
+			alreadyContinued = true;
+			endGame();
+		#else
+				m_showVideoToContinue.OpenCloseObjectAnimation();
+
+		#endif
+	}
+
+	IEnumerator ShowAdWhenReady()
+	{
+
+#if UNITY_EDITOR
+		yield return new WaitForSeconds(1);
+		AdCallbackhandler(ShowResult.Finished);
+#else
+		while (!Advertisement.isReady())
+			yield return null;
+
+		ShowOptions options = new ShowOptions ();
+		options.resultCallback = AdCallbackhandler;
+		Advertisement.Show ();
+#endif
+	}
+
+	void AdCallbackhandler (ShowResult result)
+	{
+		Debug.Log("class called");
+		alreadyContinued = true;
+		switch(result)
+		{
+		case ShowResult.Finished:
+			Debug.Log ("Ad Finished. Rewarding player...");
+			continueGame(true);
+			break;
+		case ShowResult.Skipped:
+			endGame();
+			Debug.Log ("Ad skipped. Son, I am dissapointed in you");
+			break;
+		case ShowResult.Failed:
+			endGame();
+			Debug.Log("I swear this has never happened to me before");
+			break;
+		}
+	}
+
 }
