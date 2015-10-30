@@ -316,8 +316,7 @@ public class GameManager : MonoBehaviour {
 		Application.LoadLevel("Menu");
 	}
 	public void showAdd() {
-		alreadyContinued = true;
-		StartCoroutine (ShowAdWhenReady());
+		AdsManager.showVideoAdd(CallBackAds);
 		m_showVideoToContinue.gameObject.SetActive(false);
 	}
 	public void dontShowAdd() {
@@ -325,52 +324,21 @@ public class GameManager : MonoBehaviour {
 		m_showVideoToContinue.gameObject.SetActive(false);
 		endGame();
 	}
-
 	private void showOptionVideo() {
-		#if UNITY_STANDALONE
-			alreadyContinued = true;
-			endGame();
+		#if UNITY_STANDALONE || UNITY_EDITOR
+		alreadyContinued = true;
+		endGame();
 		#else
-				m_showVideoToContinue.OpenCloseObjectAnimation();
-
+		m_showVideoToContinue.OpenCloseObjectAnimation();
 		#endif
 	}
-
-	IEnumerator ShowAdWhenReady()
-	{
-
-#if UNITY_EDITOR
-		yield return new WaitForSeconds(1);
-		AdCallbackhandler(ShowResult.Finished);
-#else
-		while (!Advertisement.isReady())
-			yield return null;
-
-		ShowOptions options = new ShowOptions ();
-		options.resultCallback = AdCallbackhandler;
-		Advertisement.Show ();
-#endif
-	}
-
-	void AdCallbackhandler (ShowResult result)
-	{
-		Debug.Log("class called");
+	
+	private void CallBackAds(bool result) {
 		alreadyContinued = true;
-		switch(result)
-		{
-		case ShowResult.Finished:
-			Debug.Log ("Ad Finished. Rewarding player...");
-			continueGame(true);
-			break;
-		case ShowResult.Skipped:
+		if(result) {
+			continueGame(true);//reload scene with same score
+		} else {
 			endGame();
-			Debug.Log ("Ad skipped. Son, I am dissapointed in you");
-			break;
-		case ShowResult.Failed:
-			endGame();
-			Debug.Log("I swear this has never happened to me before");
-			break;
 		}
 	}
-
 }
