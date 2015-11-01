@@ -67,4 +67,8 @@ public class MenuManager : MonoBehaviour {
 	public void exitGame() {
 		Application.Quit();
 	}
+
+	public void viewLeaderBoard() {
+		GoogleGamesManager.viewLeaderBoard();
+	}
 }
