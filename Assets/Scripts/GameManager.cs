@@ -303,8 +303,16 @@ public class GameManager : MonoBehaviour {
 			if(PlayerPrefs.GetInt("Score") < m_score) {
 				PlayerPrefs.SetInt("Score", m_score);
 			}
-			m_bestPuntuation.text = PlayerPrefs.GetInt("Score").ToString();
+			int getBest = PlayerPrefs.GetInt("Score");
+			m_bestPuntuation.text = getBest.ToString();
 			gameEnded = true;
+
+			if(getBest >= 10) {
+				GoogleGamesManager.scoreOf10();
+			}
+			if(getBest >= 30) {
+				GoogleGamesManager.scoreOf30();
+			}
 		}
 	}
 
@@ -322,6 +330,7 @@ public class GameManager : MonoBehaviour {
 	public void dontShowAdd() {
 		alreadyContinued = true;
 		m_showVideoToContinue.gameObject.SetActive(false);
+		GoogleGamesManager.noContinue5();
 		endGame();
 	}
 	private void showOptionVideo() {

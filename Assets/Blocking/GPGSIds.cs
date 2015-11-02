@@ -25,8 +25,13 @@ namespace Blocking
 {
 public static class GPGSIds
 {
+        public const string achievement_not_continue_5_times = "CgkIh56u3vYVEAIQBg"; // <GPGSID>
         public const string leaderboard_blocking_high_score = "CgkIh56u3vYVEAIQAQ"; // <GPGSID>
+        public const string achievement_score_of_30 = "CgkIh56u3vYVEAIQBQ"; // <GPGSID>
+        public const string achievement_play_20_times = "CgkIh56u3vYVEAIQAg"; // <GPGSID>
         public const string package_name = "es.victormartinezsimon.blocking"; // <GPGSID>
+        public const string achievement_score_of_10 = "CgkIh56u3vYVEAIQBA"; // <GPGSID>
+        public const string achievement_continue_game_10_times = "CgkIh56u3vYVEAIQAw"; // <GPGSID>
 
 }
 }

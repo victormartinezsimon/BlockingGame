@@ -57,6 +57,7 @@ public class AdsManager : MonoBehaviour {
 		case ShowResult.Finished:
 			Debug.Log ("Ad Finished. Rewarding player...");
 			AdsManager.getInstance().myCallback(true);
+			GoogleGamesManager.continue10Times();
 			break;
 		case ShowResult.Skipped:
 			Debug.Log ("Ad skipped. Son, I am dissapointed in you");
