@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		m_score = 0;
 		m_camera = Camera.main;
-		Random.seed = 10;
+		Random.seed = (int)System.DateTime.UtcNow.Ticks;
 		m_blocksEnabled = new List<GameObject>();
 		timeAcum = 0;
 		alreadyContinued = false;
@@ -299,7 +299,6 @@ public class GameManager : MonoBehaviour {
 			m_gameOverScreen.OpenCloseObjectAnimation();
 			m_actualPuntuation.text = m_score.ToString();
 
-
 			if(PlayerPrefs.GetInt("Score") < m_score) {
 				PlayerPrefs.SetInt("Score", m_score);
 			}
@@ -313,6 +312,8 @@ public class GameManager : MonoBehaviour {
 			if(getBest >= 30) {
 				GoogleGamesManager.scoreOf30();
 			}
+
+			GoogleGamesManager.saveScore(getBest);
 		}
 	}
 

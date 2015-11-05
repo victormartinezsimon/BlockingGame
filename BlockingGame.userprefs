@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GoogleGamesManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="313" Column="14" />
-      <File FileName="Assets\Scripts\GoogleGamesManager.cs" Line="83" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="160" Column="77" />
+      <File FileName="Assets\Scripts\GoogleGamesManager.cs" Line="32" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

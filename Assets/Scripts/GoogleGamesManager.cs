@@ -16,16 +16,21 @@ public class GoogleGamesManager : MonoBehaviour {
 		}
 		instance = this;
 		DontDestroyOnLoad(this.gameObject);
-#if !UNITY_STANDALONE && !UNITY_EDITOR
-		Social.localUser.Authenticate((bool success) => Debug.Log("Player authenticated => " + success));
-#endif
-		play20Times();
+		initialize();
 	}
-
+	private void initialize() {
+		PlayGamesPlatform.InitializeInstance(GooglePlayGames.BasicApi.PlayGamesClientConfiguration.DefaultConfiguration);
+		GooglePlayGames.PlayGamesPlatform.Activate();
+		#if !UNITY_STANDALONE && !UNITY_EDITOR
+		Social.localUser.Authenticate((bool success) => {
+			Debug.Log("Player authenticated => " + success);
+			Debug.Log(Social.localUser.userName);
+		});
+		#endif
+	}
 	public static void saveScore(int score) {
 #if !UNITY_STANDALONE && !UNITY_EDITOR
-		PlayGamesPlatform.Instance.IncrementAchievement(
-		GPGSIds.leaderboard_blocking_high_score, score, (bool success) => {
+		Social.ReportScore(score, GPGSIds.leaderboard_blocking_high_score, (bool success) => {
 			Debug.Log("Score saved => " + success);
 		});
 #endif
@@ -43,7 +48,6 @@ public class GoogleGamesManager : MonoBehaviour {
 			Blocking.GPGSIds.achievement_play_20_times, 1, (bool success) => {
 			// handle success or failure
 			Debug.Log("Play 20 times => " + success);
-			
 		});
 #endif
 	}
@@ -53,7 +57,6 @@ public class GoogleGamesManager : MonoBehaviour {
 			Blocking.GPGSIds.achievement_continue_game_10_times, 1, (bool success) => {
 			// handle success or failure
 			Debug.Log("Continued 10 => " + success);
-			
 		});
 #endif
 	}
