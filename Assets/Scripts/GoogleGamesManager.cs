@@ -25,6 +25,7 @@ public class GoogleGamesManager : MonoBehaviour {
 		Social.localUser.Authenticate((bool success) => {
 			Debug.Log("Player authenticated => " + success);
 			Debug.Log(Social.localUser.userName);
+			play20Times();
 		});
 		#endif
 	}
