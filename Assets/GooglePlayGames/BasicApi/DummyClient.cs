@@ -22,6 +22,7 @@ namespace GooglePlayGames.BasicApi
     using GooglePlayGames.OurUtils;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
+    using GooglePlayGames.OurUtils;
 
     public class DummyClient : IPlayGamesClient
     {
@@ -287,7 +288,7 @@ namespace GooglePlayGames.BasicApi
 
         private static void LogUsage()
         {
-            Logger.d("Received method call on DummyClient - using stub implementation.");
+            GooglePlayGames.OurUtils.Logger.d("Received method call on DummyClient - using stub implementation.");
         }
     }
 }
